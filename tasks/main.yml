@@ -15,7 +15,7 @@
   ansible.builtin.cron:
     name: Schedule for Ansible
     minute: "*/15"
-    job: "/usr/bin/ansible-playbook -i localhost, /opt/oci-rsa/oci-rsa-ansible-bastion/main.yml --connection=local"
+    job: "/usr/bin/ansible-playbook -i localhost, /opt/oci-rsa/{{ ansible_playbook_name }}/main.yml --connection=local"
 
 - name: Ensure chrony.conf has correct server
   ansible.builtin.lineinfile:
