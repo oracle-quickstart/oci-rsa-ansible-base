@@ -90,3 +90,21 @@
     minute: "23"
     hour: "2"
     job: '/bin/lynis audit system --pentest'
+
+- name: run software inventory
+  shell: rpm -qa --queryformat '%{NAME}, "%{VENDOR}", %{VERSION}, "%{LICENSE}", "%{SUMMARY}"\n' | grep -iv oracle | sort > {{ temp_report_path }}/inventory.txt
+  args:
+    warn: false
+  become: true
+
+- name: put the software inventory result to bucket
+  shell: "oci os object put -bn {{ bucket_name }} --name {{ file_name }} --file {{ temp_report_path }}/inventory.csv --force"
+  environment:
+    OCI_CLI_AUTH: instance_principal
+  become: true
+
+- name: remove the inventory report from instance
+  file:
+    state: absent
+    path:  "{{ temp_report_path }}/inventory.csv"
+  become: true
