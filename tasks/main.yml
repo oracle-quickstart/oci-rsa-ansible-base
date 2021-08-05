@@ -98,7 +98,7 @@
   become: true
 
 - name: put the software inventory result to bucket
-  shell: "oci os object put -bn {{ bucket_name }} --name {{ file_name }} --file {{ temp_report_path }}/inventory.txt --force"
+  shell: "oci os object put -bn {{ bucket_name }} --name {{ file_name }} --file {{ temp_report_path }}/inventory.csv --force"
   environment:
     OCI_CLI_AUTH: instance_principal
   become: true
@@ -106,5 +106,5 @@
 - name: remove the inventory report from instance
   file:
     state: absent
-    path:  "{{ temp_report_path }}/inventory.txt"
+    path:  "{{ temp_report_path }}/inventory.csv"
   become: true
