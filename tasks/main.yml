@@ -98,7 +98,7 @@
   become: true
 
 - name: put the software inventory result to bucket
-  shell: "oci os object put -bn {{ bucket_name }} --name {{ file_name }} --file {{ temp_report_path }}/inventory.csv --force"
+  shell: "oci os object put -bn {{ resource_bucket_name }} --name {{ file_name }} --file {{ temp_report_path }}/inventory.csv --force"
   environment:
     OCI_CLI_AUTH: instance_principal
   become: true
