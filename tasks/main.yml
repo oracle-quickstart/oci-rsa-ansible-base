@@ -92,7 +92,7 @@
     job: '/bin/lynis audit system --pentest'
 
 - name: run software inventory
-  shell: rpm -qa --queryformat '%{NAME}, "%{VENDOR}", %{VERSION}, "%{LICENSE}", "%{SUMMARY}"\n' | grep -iv oracle | sort > {{ temp_report_path }}/inventory.txt
+  shell: rpm -qa --queryformat '%{NAME}, "%{VENDOR}", %{VERSION}, "%{LICENSE}", "%{SUMMARY}"\n' | grep -iv oracle | sort > {{ temp_report_path }}/inventory.csv
   args:
     warn: false
   become: true
