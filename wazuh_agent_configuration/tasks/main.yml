@@ -1,0 +1,7 @@
+- name: Wazuh Agent Configuration for Local File Monitoring
+  ansible.builtin.template:
+    src: wazuh_local_files.conf
+    dest: "{{ ossec_dir }}/etc/shared/agent.conf"
+    owner: root
+    group: ossec
+    mode: '0600'
