@@ -91,16 +91,16 @@
     hour: "2"
     job: '/bin/lynis audit system --pentest'
 
-- name: Add Wazuh Group
-  group:
+- name: Add the wazuh group
+  ansible.builtin.group:
     name: wazuh
-  become: true
+    state: present
 
-- name: Add Wazuh User
-  user:
+- name: Add the wazuh user
+  ansible.builtin.user:
     name: wazuh
+    comment: Wazuh User
     group: wazuh
-  become: true
 
 - name: run software inventory
   shell: rpm -qa --queryformat '%{NAME}, "%{VENDOR}", %{VERSION}, "%{LICENSE}", "%{SUMMARY}"\n' | grep -iv oracle | sort > {{ temp_report_path }}/inventory.csv
