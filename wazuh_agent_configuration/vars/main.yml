@@ -1,0 +1,3 @@
+---
+# vars file for wazuh_agent_configuration
+ossec_dir: /var/ossec
