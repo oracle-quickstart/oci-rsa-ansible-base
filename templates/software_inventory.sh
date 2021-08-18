@@ -1,0 +1,2 @@
+rpm -qa --queryformat '%{NAME}, "%{VENDOR}", %{VERSION}, "%{LICENSE}", "%{SUMMARY}"\n' | sort > {{ temp_report_path }}/inventory.csv
+oci os object put -bn {{ resource_bucket_name }} --name {{ file_name }} --file {{ temp_report_path }}/inventory.csv --force --auth instance_principal

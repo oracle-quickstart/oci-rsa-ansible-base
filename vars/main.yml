@@ -1,2 +1,4 @@
 ---
 # vars file for base
+file_name: "software_inventory_{{ ansible_hostname }}.csv"
+temp_report_path: "/home/opc"

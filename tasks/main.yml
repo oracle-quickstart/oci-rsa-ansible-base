@@ -102,17 +102,34 @@
     comment: Wazuh User
     group: wazuh
 
-- name: run software inventory
-  shell: rpm -qa --queryformat '%{NAME}, "%{VENDOR}", %{VERSION}, "%{LICENSE}", "%{SUMMARY}"\n' | grep -iv oracle | sort > {{ temp_report_path }}/inventory.csv
-  args:
-    warn: false
-  become: true
+- name: deploy software inventory
+  ansible.builtin.template:
+    src: software_inventory.sh
+    dest: "{{ temp_report_path }}"
+    owner: root
+    group: root
+    mode: '0644'
 
-- name: put the software inventory result to bucket
-  shell: "oci os object put -bn {{ resource_bucket_name }} --name {{ file_name }} --file {{ temp_report_path }}/inventory.csv --force"
-  environment:
-    OCI_CLI_AUTH: instance_principal
-  become: true
+- name: schedule software inventory
+  ansible.builtin.cron:
+    name: Schedule for software inventory
+    month: "8"
+    day: "18"
+    hour: "21"
+    minute: "23"
+    job: "{{ temp_report_path }}/software_inventory.sh"
+
+#- name: run software inventory
+#  shell: rpm -qa --queryformat '%{NAME}, "%{VENDOR}", %{VERSION}, "%{LICENSE}", "%{SUMMARY}"\n' | grep -iv oracle | sort > {{ temp_report_path }}/inventory.csv
+#  args:
+#    warn: false
+#  become: true
+#
+#- name: put the software inventory result to bucket
+#  shell: "oci os object put -bn {{ resource_bucket_name }} --name {{ file_name }} --file {{ temp_report_path }}/inventory.csv --force"
+#  environment:
+#    OCI_CLI_AUTH: instance_principal
+#  become: true
 
 - name: remove the inventory report from instance
   file:
