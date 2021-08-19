@@ -108,7 +108,7 @@
     dest: "{{ temp_report_path }}"
     owner: root
     group: root
-    mode: '0644'
+    mode: "u+rwx"
 
 - name: schedule software inventory
   ansible.builtin.cron:
