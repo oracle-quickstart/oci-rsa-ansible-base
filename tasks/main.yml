@@ -122,7 +122,6 @@
 - name: schedule software inventory
   ansible.builtin.cron:
     name: Schedule for software inventory
-    hour: "21"
-    minute: "4"
+    hour: "2"
     job: "{{ oci_rsa_path }}/bin/software_inventory.sh"
   when: resource_bucket_name is defined
