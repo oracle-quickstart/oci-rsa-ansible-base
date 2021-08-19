@@ -1,4 +1,3 @@
 ---
 # vars file for base
-temp_report_path: "/tmp"
 oci_rsa_path: "/opt/oci-rsa"
