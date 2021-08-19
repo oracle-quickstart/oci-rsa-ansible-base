@@ -102,10 +102,18 @@
     comment: Wazuh User
     group: wazuh
 
+- name: Create bin directory
+  ansible.builtin.file:
+    path: "{{ oci_rsa_path }}/bin"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
 - name: deploy software inventory
   ansible.builtin.template:
-    src: software_inventory.sh
-    dest: "{{ temp_report_path }}"
+    src: software_inventory.sh.j2
+    dest: "{{ oci_rsa_path }}/bin/software_inventory.sh"
     owner: root
     group: root
     mode: "u+rwx"
@@ -114,6 +122,7 @@
 - name: schedule software inventory
   ansible.builtin.cron:
     name: Schedule for software inventory
-    hour: "2"
-    job: "{{ temp_report_path }}/software_inventory.sh"
+    hour: "21"
+    minute: "4"
+    job: "{{ oci_rsa_path }}/bin/software_inventory.sh"
   when: resource_bucket_name is defined
