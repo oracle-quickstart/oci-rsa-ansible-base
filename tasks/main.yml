@@ -102,20 +102,26 @@
     comment: Wazuh User
     group: wazuh
 
-- name: run software inventory
-  shell: rpm -qa --queryformat '%{NAME}, "%{VENDOR}", %{VERSION}, "%{LICENSE}", "%{SUMMARY}"\n' | grep -iv oracle | sort > {{ temp_report_path }}/inventory.csv
-  args:
-    warn: false
-  become: true
+- name: Create bin directory
+  ansible.builtin.file:
+    path: "{{ oci_rsa_path }}/bin"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
 
-- name: put the software inventory result to bucket
-  shell: "oci os object put -bn {{ resource_bucket_name }} --name {{ file_name }} --file {{ temp_report_path }}/inventory.csv --force"
-  environment:
-    OCI_CLI_AUTH: instance_principal
-  become: true
+- name: deploy software inventory
+  ansible.builtin.template:
+    src: software_inventory.sh.j2
+    dest: "{{ oci_rsa_path }}/bin/software_inventory.sh"
+    owner: root
+    group: root
+    mode: "u+rwx"
+  when: resource_bucket_name is defined
 
-- name: remove the inventory report from instance
-  file:
-    state: absent
-    path:  "{{ temp_report_path }}/inventory.csv"
-  become: true
+- name: schedule software inventory
+  ansible.builtin.cron:
+    name: Schedule for software inventory
+    hour: "2"
+    job: "{{ oci_rsa_path }}/bin/software_inventory.sh"
+  when: resource_bucket_name is defined
