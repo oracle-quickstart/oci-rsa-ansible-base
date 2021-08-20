@@ -1,0 +1,16 @@
+- name: Deploy clamscan configuration file
+  ansible.builtin.template:
+    src: scan.conf.j2
+    dest: "/etc/clamd.d/scan.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: 
+    - restart clamav daemon
+
+- name: schedule clamscan
+  ansible.builtin.cron:
+    name: Schedule for running clamscan
+    minute: "7"
+    hour: "2"
+    job: "/usr/bin/clamscan -r / -i -o 2> /var/log/clamscan.errors | logger -t clamd"
