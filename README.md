@@ -49,7 +49,7 @@ Use this role before any of the other RSA roles as it activates the epel repo.
 This role is used by the following RSA playbooks
 - [oci-rsa-ansible-wazuh]()
 - [oci-rsa-ansible-wazuh-kibana]()
-- []()
+- [oci-rsa-ansible-wazuh-odfe]()
 
 How to Contribute
 ----------------
