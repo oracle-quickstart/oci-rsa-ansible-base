@@ -1,38 +1,53 @@
-Role Name
+OCI-RSA-Ansible-Base
 =========
 
-A brief description of the role goes here.
+Installs base packages and sets configuration for general security, monitoring, and auditing purposes.
+
+Installs the following:
+
+- git
+- nmap
+- chronyd
+- suricata
+- scipag
+- lynis
 
 Requirements
 ------------
+- ansible >= 2.11.0
+- Oracle Linux >= 7.9
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+    oci_rsa_path: "/opt/oci-rsa"
+
+Path where rsa software is installed. Rsa specific ansible playbooks and scripts are deployed here.
+
+    ansible_playbook_name: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+
+Used to schedule a cron job to run the calling playbook. 
+
 
 Dependencies
 ------------
+Ansible roles used by this role
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+- clamd_configuration: configures clamscan through scan.conf template
+- wazuh_agent_configuration: configures wazuh agent local file scanning
 
 Example Playbook
 ----------------
+Use this role before any of the other RSA roles as it activates the epel repo.
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+    - hosts: all
+      roles: 
+        - role: oci-rsa-ansible-base
+          become: true
 
 License
 -------
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+This repository and its contents are licensed under UPL 1.0.
