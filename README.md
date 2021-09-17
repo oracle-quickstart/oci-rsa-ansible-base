@@ -14,9 +14,8 @@ Installs the following:
 
 Requirements
 ------------
-- ansible >= 2.11.0
-- Oracle Linux >= 7.9
-
+- [Ansible core](https://docs.ansible.com/ansible-core/devel/index.html) >= 2.11.0
+- Oracle Linux >= 7.
 
 
 Role Variables
@@ -47,7 +46,16 @@ Use this role before any of the other RSA roles as it activates the epel repo.
         - role: oci-rsa-ansible-base
           become: true
 
+This role is used by the following RSA playbooks
+- [oci-rsa-ansible-wazuh]()
+- [oci-rsa-ansible-wazuh-kibana]()
+- []()
+
+How to Contribute
+----------------
+Interested in contributing?  See our contribution [guidelines](CONTRIBUTE.md) for details.
+
 License
 -------
 
-This repository and its contents are licensed under UPL 1.0.
+This repository and its contents are licensed under [UPL 1.0](LICENSE).
