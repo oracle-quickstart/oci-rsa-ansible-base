@@ -1,4 +1,4 @@
-OCI-RSA-Ansible-Base
+OCI-RSA-ANSIBLE-BASE
 =========
 
 Installs base packages and sets configuration for general security, monitoring, and auditing purposes.
@@ -12,10 +12,19 @@ Installs the following:
 - scipag
 - lynis
 
+This repository was developed by the Oracle OCI Regulatory Solutions and Automation(RSA) team. 
+
+This role is used by the following RSA playbooks:
+- [oci-rsa-ansible-wazuh](PLACEHOLDER)
+- [oci-rsa-ansible-wazuh-kibana](PLACEHOLDER)
+- [oci-rsa-ansible-wazuh-odfe](PLACEHOLDER)
+- [oci-rsa-ansible-bastion](PLACEHOLDER)
+
+
 Requirements
 ------------
 - [Ansible core](https://docs.ansible.com/ansible-core/devel/index.html) >= 2.11.0
-- Oracle Linux >= 7.
+- [Oracle Autonomous Linux](https://www.oracle.com/linux/autonomous-linux/) >= 7.9
 
 
 Role Variables
@@ -23,11 +32,12 @@ Role Variables
 
     oci_rsa_path: "/opt/oci-rsa"
 
-Path where rsa software is installed. Rsa specific ansible playbooks and scripts are deployed here.
+Path where RSA software is installed. RSA specific ansible playbooks and scripts are deployed here.
 
-    ansible_playbook_name: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+    ansible_playbook_name: "{}"
 
-Used to schedule a cron job to run the calling playbook. 
+Used to schedule a cron job to run the calling playbook. Example: oci-rsa-ansible-wazuh.
+We have set the default value to automatically fetch the playbook name. 
 
 
 Dependencies
@@ -46,10 +56,6 @@ Use this role before any of the other RSA roles as it activates the epel repo.
         - role: oci-rsa-ansible-base
           become: true
 
-This role is used by the following RSA playbooks
-- [oci-rsa-ansible-wazuh]()
-- [oci-rsa-ansible-wazuh-kibana]()
-- [oci-rsa-ansible-wazuh-odfe]()
 
 How to Contribute
 ----------------

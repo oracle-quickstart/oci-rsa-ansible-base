@@ -1,4 +1,4 @@
-# Contributing to OCI RSA Ansible Base Role
+# Contributing to OCI-RSA-ANSIBLE-BASE Role
 
 Oracle welcomes contributions to this repository from anyone.
 
