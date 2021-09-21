@@ -20,7 +20,6 @@ This role is used by the following RSA playbooks:
 - [oci-rsa-ansible-wazuh-odfe](PLACEHOLDER)
 - [oci-rsa-ansible-bastion](PLACEHOLDER)
 
-
 Requirements
 ------------
 - [Ansible core](https://docs.ansible.com/ansible-core/devel/index.html) >= 2.11.0
@@ -29,15 +28,14 @@ Requirements
 
 Role Variables
 --------------
+Path where RSA software is installed. RSA specific ansible playbooks and scripts are deployed here.
 
     oci_rsa_path: "/opt/oci-rsa"
 
-Path where RSA software is installed. RSA specific ansible playbooks and scripts are deployed here.
-
-    ansible_playbook_name: "{}"
-
 Used to schedule a cron job to run the calling playbook. Example: oci-rsa-ansible-wazuh.
 We have set the default value to automatically fetch the playbook name. 
+    
+    ansible_playbook_name: "{}"
 
 
 Dependencies
