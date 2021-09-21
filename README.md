@@ -29,14 +29,20 @@ Requirements
 Role Variables
 --------------
 Path where RSA software is installed. RSA specific ansible playbooks and scripts are deployed here.
-
-    oci_rsa_path: "/opt/oci-rsa"
+```
+oci_rsa_path: "/opt/oci-rsa"
+```
 
 Used to schedule a cron job to run the calling playbook. Example: oci-rsa-ansible-wazuh.
-We have set the default value to automatically fetch the playbook name. 
-    
-    ansible_playbook_name: "{}"
+We have set the default value to automatically fetch the playbook name.
+```
+ansible_playbook_name: "{}"
+```
 
+Variable set inside `extra_variables.yml` for backing up resource inventory to object storage.
+```
+resource_bucket_name
+```
 
 Dependencies
 ------------
@@ -54,6 +60,9 @@ Use this role before any of the other RSA roles as it activates the epel repo.
         - role: oci-rsa-ansible-base
           become: true
 
+The Team
+---------
+This repository was developed by the Oracle OCI Regulatory Solutions and Automation(RSA) team. 
 
 How to Contribute
 ----------------
@@ -61,5 +70,4 @@ Interested in contributing?  See our contribution [guidelines](CONTRIBUTE.md) fo
 
 License
 -------
-
 This repository and its contents are licensed under [UPL 1.0](LICENSE).
