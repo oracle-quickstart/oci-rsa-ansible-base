@@ -3,15 +3,15 @@ OCI-RSA-ANSIBLE-BASE
 
 Installs base packages and sets configuration for general security, monitoring, and auditing purposes.
 
-This role is used by the following RSA playbooks:
+Provides common functionality and configuration for the following RSA playbooks:
 - [oci-rsa-ansible-wazuh](PLACEHOLDER)
 - [oci-rsa-ansible-wazuh-kibana](PLACEHOLDER)
 - [oci-rsa-ansible-wazuh-odfe](PLACEHOLDER)
 - [oci-rsa-ansible-bastion](PLACEHOLDER)
 
-Installs and configures the following software to help meet compliance requirement across projects:
+Installs and configures packages with the goal of building a secure computing enviroment. 
 
-- git
+Ex.
 - nmap
 - chronyd
 - suricata
