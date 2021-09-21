@@ -3,7 +3,13 @@ OCI-RSA-ANSIBLE-BASE
 
 Installs base packages and sets configuration for general security, monitoring, and auditing purposes.
 
-Installs the following:
+This role is used by the following RSA playbooks:
+- [oci-rsa-ansible-wazuh](PLACEHOLDER)
+- [oci-rsa-ansible-wazuh-kibana](PLACEHOLDER)
+- [oci-rsa-ansible-wazuh-odfe](PLACEHOLDER)
+- [oci-rsa-ansible-bastion](PLACEHOLDER)
+
+Installs and configures the following software to help meet compliance requirement across projects:
 
 - git
 - nmap
@@ -12,13 +18,6 @@ Installs the following:
 - scipag
 - lynis
 
-This repository was developed by the Oracle OCI Regulatory Solutions and Automation(RSA) team. 
-
-This role is used by the following RSA playbooks:
-- [oci-rsa-ansible-wazuh](PLACEHOLDER)
-- [oci-rsa-ansible-wazuh-kibana](PLACEHOLDER)
-- [oci-rsa-ansible-wazuh-odfe](PLACEHOLDER)
-- [oci-rsa-ansible-bastion](PLACEHOLDER)
 
 Requirements
 ------------
@@ -39,7 +38,10 @@ We have set the default value to automatically fetch the playbook name.
 ansible_playbook_name: "{}"
 ```
 
-Variable set inside `extra_variables.yml` for backing up resource inventory to object storage.
+Optional Variable
+--------------
+This is an optional variable set inside `extra_variables.yml`. The backing up of resource inventory to object storage only 
+runs if this variable is defined.
 ```
 resource_bucket_name
 ```
