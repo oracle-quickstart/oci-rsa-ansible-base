@@ -11,7 +11,7 @@ Provides common functionality and configuration for the following RSA playbooks:
 
 Installs and configures packages with the goal of building a secure computing environment. 
 
-Ex.
+Example-
 - nmap
 - chronyd
 - suricata
