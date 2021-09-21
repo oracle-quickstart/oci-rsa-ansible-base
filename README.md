@@ -9,7 +9,7 @@ Provides common functionality and configuration for the following RSA playbooks:
 - [oci-rsa-ansible-wazuh-odfe](PLACEHOLDER)
 - [oci-rsa-ansible-bastion](PLACEHOLDER)
 
-Installs and configures packages with the goal of building a secure computing enviroment. 
+Installs and configures packages with the goal of building a secure computing environment. 
 
 Ex.
 - nmap
@@ -64,7 +64,7 @@ Use this role before any of the other RSA roles as it activates the epel repo.
 
 The Team
 ---------
-This repository was developed by the Oracle OCI Regulatory Solutions and Automation(RSA) team. 
+This repository was developed by the Oracle OCI Regulatory Solutions and Automation (RSA) team. 
 
 How to Contribute
 ----------------
