@@ -125,3 +125,9 @@
     hour: "2"
     job: "{{ oci_rsa_path }}/bin/software_inventory.sh"
   when: resource_bucket_name is defined
+
+- name: schedule clamscan
+  ansible.builtin.cron:
+    name: Schedule for running clamscan
+    hour: "2"
+    job: 'clamscan -r / -i -o --exclude "^/var/lib/suricata/update/cache" --exclude "^/usr/bin/pnscan" --exclude-dir="^/sys" > /var/log/clamscan.errors | logger -t clamd'
