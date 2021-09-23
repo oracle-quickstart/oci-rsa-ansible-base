@@ -1,2 +1,6 @@
 ---
 ansible_playbook_name: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+
+# clamav_freshclam_daemon: 'clamav-freshclam'
+clamav_freshclam_daemon_state: started
+clamav_freshclam_daemon_enabled: true

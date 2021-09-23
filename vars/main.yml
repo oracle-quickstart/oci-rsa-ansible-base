@@ -4,3 +4,4 @@ oci_rsa_path: "/opt/oci-rsa"
 
 clamav_daemon_state: stopped
 clamav_daemon_enabled: false
+__clamav_freshclam_daemon: "clamd-freshclam"

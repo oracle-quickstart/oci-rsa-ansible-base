@@ -6,6 +6,11 @@
     regexp: '^enabled=0'
     line: enabled=1
 
+- name: Install clamav
+  package:
+    name: clamav
+    state: latest # noqa package-latest
+
 - name: Install chrony
   package:
     name: chrony
@@ -126,8 +131,36 @@
     job: "{{ oci_rsa_path }}/bin/software_inventory.sh"
   when: resource_bucket_name is defined
 
+- name: Define clamav_freshclam_daemon.
+  set_fact:
+    clamav_freshclam_daemon: "{{ __clamav_freshclam_daemon }}"
+  when: clamav_freshclam_daemon is not defined
+
+- name: Run freshclam after ClamAV packages change.
+  command: freshclam
+  when: clamav_packages_install.changed
+  register: freshclam_result
+  notify: restart clamav daemon
+  failed_when:
+    - freshclam_result is failed
+    - freshclam_result.stderr.find('locked by another process') != -1
+
+- name: Ensure Freshclam service is available.
+  template:
+    src: clamd-freshclam.service.j2
+    dest: /lib/systemd/system/clamd-freshclam.service
+    mode: 0644
+  register: freshclam_service_template
+
+- name: Reload systemd after adding service.
+  systemd:
+    state: stopped
+    daemon_reload: true
+    name: "{{ clamav_freshclam_daemon }}"
+  when: freshclam_service_template.changed
+
 - name: schedule clamscan
   ansible.builtin.cron:
     name: Schedule for running clamscan
     hour: "2"
-    job: 'clamscan -r / -i -o --exclude "^/var/lib/suricata/update/cache" --exclude "^/usr/bin/pnscan" --exclude-dir="^/sys" > /var/log/clamscan.errors | logger -t clamd'
+    job: "clamscan -r / -i -o --exclude ^/var/lib/suricata/update/cache --exclude ^/usr/bin/pnscan --exclude-dir ^/sys > /var/log/clamscan.errors | logger -t clamd"
