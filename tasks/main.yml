@@ -10,6 +10,7 @@
   package:
     name: clamav
     state: latest # noqa package-latest
+  register: clamav_packages_install
 
 - name: Install chrony
   package:
@@ -138,7 +139,7 @@
 
 - name: Run freshclam after ClamAV packages change.
   command: freshclam
-#  when: clamav_packages_install.changed
+  when: clamav_packages_install.changed
   register: freshclam_result
 #  notify: restart clamav daemon
   failed_when:
@@ -162,5 +163,6 @@
 - name: schedule clamscan
   ansible.builtin.cron:
     name: Schedule for running clamscan
-    hour: "2"
+    minute: "15"
+    hour: "16"
     job: "clamscan -r / -i -o --exclude ^/var/lib/suricata/update/cache --exclude ^/usr/bin/pnscan --exclude-dir ^/sys > /var/log/clamscan.errors | logger -t clamd"
