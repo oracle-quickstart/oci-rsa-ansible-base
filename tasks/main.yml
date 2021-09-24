@@ -140,6 +140,8 @@
     group: root
     mode: "u+rwx"
   register: freshclam_config_template
+  notify:
+    - Restart clamav-freshclam daemon
 
 - name: Run freshclam after ClamAV packages change.
   command: freshclam
@@ -148,13 +150,6 @@
   failed_when:
     - freshclam_result is failed
     - freshclam_result.stderr.find('locked by another process') != -1
-
-- name: Reload systemd after adding configuration for logging.
-  systemd:
-    state: stopped
-    daemon_reload: true
-    name: "{{ clamav_freshclam_daemon }}"
-  when: freshclam_config_template.changed
 
 - name: Ensure ClamAV freshclam daemon is running (if configured).
   service:
