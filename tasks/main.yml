@@ -132,6 +132,14 @@
     job: "{{ oci_rsa_path }}/bin/software_inventory.sh"
   when: resource_bucket_name is defined
 
+- name: Deploy freshclam configuration for logging
+  ansible.builtin.template:
+    src: freshclam.conf.j2
+    dest: "/etc/freshclam.conf"
+    owner: root
+    group: root
+    mode: "u+rwx"
+
 - name: Run freshclam after ClamAV packages change.
   command: freshclam
   when: clamav_packages_install.changed
