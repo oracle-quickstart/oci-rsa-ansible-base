@@ -149,7 +149,7 @@
     - freshclam_result is failed
     - freshclam_result.stderr.find('locked by another process') != -1
 
-- name: Reload systemd after adding service.
+- name: Reload systemd after adding configuration for logging.
   systemd:
     state: stopped
     daemon_reload: true
