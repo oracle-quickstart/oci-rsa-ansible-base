@@ -139,6 +139,7 @@
     owner: root
     group: root
     mode: "u+rwx"
+  register: freshclam_config_template
 
 - name: Run freshclam after ClamAV packages change.
   command: freshclam
@@ -148,9 +149,16 @@
     - freshclam_result is failed
     - freshclam_result.stderr.find('locked by another process') != -1
 
+- name: Reload systemd after adding service.
+  systemd:
+    state: stopped
+    daemon_reload: true
+    name: "{{ clamav_freshclam_daemon }}"
+  when: freshclam_config_template.changed
+
 - name: Ensure ClamAV freshclam daemon is running (if configured).
   service:
-    name: "clamav-freshclam"
+    name: "{{ clamav_freshclam_daemon }}"
     state: started
     enabled: true
 
