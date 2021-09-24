@@ -138,9 +138,9 @@
 
 - name: Run freshclam after ClamAV packages change.
   command: freshclam
-  when: clamav_packages_install.changed
+#  when: clamav_packages_install.changed
   register: freshclam_result
-  notify: restart clamav daemon
+#  notify: restart clamav daemon
   failed_when:
     - freshclam_result is failed
     - freshclam_result.stderr.find('locked by another process') != -1
