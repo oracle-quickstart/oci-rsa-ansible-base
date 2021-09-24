@@ -140,13 +140,6 @@
     - freshclam_result is failed
     - freshclam_result.stderr.find('locked by another process') != -1
 
-- name: Reload systemd after adding service.
-  systemd:
-    state: stopped
-    daemon_reload: true
-    name: "clamav-freshclam"
-  when: freshclam_service_template.changed
-
 - name: Ensure ClamAV freshclam daemon is running (if configured).
   service:
     name: "clamav-freshclam"
