@@ -10,3 +10,8 @@
       name: suricata
       state: restarted
     become: true
+
+  - name: Restart clamav-freshclam daemon
+    service:
+      name: "{{ clamav_freshclam_daemon }}"
+      state: restarted
