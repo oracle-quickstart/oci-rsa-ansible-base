@@ -4,10 +4,10 @@ OCI-RSA-ANSIBLE-BASE
 Installs base packages and sets configuration for general security, monitoring, and auditing purposes.
 
 Provides common functionality and configuration for the following RSA playbooks:
-- [oci-rsa-ansible-wazuh](PLACEHOLDER)
-- [oci-rsa-ansible-wazuh-kibana](PLACEHOLDER)
-- [oci-rsa-ansible-wazuh-odfe](PLACEHOLDER)
-- [oci-rsa-ansible-bastion](PLACEHOLDER)
+- [oci-rsa-ansible-wazuh](https://github.com/oracle-quickstart/oci-rsa-ansible-wazuh)
+- [oci-rsa-ansible-wazuh-kibana](https://github.com/oracle-quickstart/oci-rsa-ansible-wazuh-kibana)
+- [oci-rsa-ansible-wazuh-odfe](https://github.com/oracle-quickstart/oci-rsa-ansible-wazuh-odfe)
+- [oci-rsa-ansible-bastion](https://github.com/oracle-quickstart/oci-rsa-ansible-bastion)
 
 Installs and configures packages with the goal of building a secure computing environment. 
 
